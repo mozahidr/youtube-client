@@ -13,7 +13,7 @@ export const Watch = () => {
     const fetchMovie = async () => {
       const response = await axios.get('/movies/find/' + path, {
         headers: {
-          token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZWJiZjkyNDE5OWFjMzQ1Mzg2OWUxNCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY3Njg4MjE0NywiZXhwIjoxNjc3MzE0MTQ3fQ.mGsCf596AG8SE8j_D6-xI1v_bgiRRw8TKxK2N5AbV4A',
+          token: 'Bearer ' + JSON.parse(localStorage.getItem("user")).accessToken,
         },
       });
       setMovie(response.data);

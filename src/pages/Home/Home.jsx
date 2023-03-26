@@ -7,7 +7,7 @@ import axios from 'axios';
 
 export const Home = ({ type }) => {
   const [lists, setLists] = useState([]);
-  const [genre, setGenres] = useState(null);
+  const [genre, setGenre] = useState(null);
 
   useEffect(() => {
     const getRandomLists = async () => {
@@ -18,8 +18,7 @@ export const Home = ({ type }) => {
           }`,
           {
             headers: {
-              token:
-                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZWJiZjkyNDE5OWFjMzQ1Mzg2OWUxNCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY3NjY1NTk0OCwiZXhwIjoxNjc3MDg3OTQ4fQ._XllmZJBeco3k4m3q8jYnQVATz_DZuaAfJHBqYtdw5g',
+              token: 'Bearer ' + JSON.parse(localStorage.getItem("user")).accessToken,
             },
           }
         );
@@ -35,7 +34,7 @@ export const Home = ({ type }) => {
   return (
     <div className="home">
       <Navbar />
-      <Featured type={type} />
+      <Featured type={type} setGenre={setGenre} />
       {lists.map((list) => (
         <List list={list} />
       ))}

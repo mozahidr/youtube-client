@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './Navbar.scss';
 import logo from '../../images/logo.png';
 import avatar from '../../images/avatar.png';
@@ -6,9 +6,12 @@ import SearchIcon from '@mui/icons-material/Search';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../AuthContext/AuthContext';
+import { logout } from '../../AuthContext/AuthAction';
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const { dispatch } = useContext(AuthContext);
 
   window.onscroll = () => {
     setIsScrolled(window.pageYOffset === 0 ? false : true);
@@ -23,10 +26,10 @@ export const Navbar = () => {
             <span>Home</span>
           </Link>
           <Link to="/series" className='link'>
-            <span>Series</span>
+            <span className='navbarmainLinks'>Series</span>
           </Link>
           <Link to='/movies' className='link'>
-            <span>Movies</span>
+            <span className='navbarmainLinks'>Movies</span>
           </Link>
           <span>New and Popular</span>
           <span>My List</span>
@@ -39,8 +42,8 @@ export const Navbar = () => {
           <div className="profile">
             <ArrowDropDownIcon className="icon" />
             <div className="options">
-              <span>Settings</span>
-              <span>Logout</span>
+              <Link to='/profile' className='link'><span>Settings</span></Link>
+              <span onClick={() => dispatch(logout())}>Logout</span>
             </div>
           </div>
         </div>

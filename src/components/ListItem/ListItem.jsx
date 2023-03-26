@@ -18,8 +18,7 @@ export const ListItem = ({ index, item }) => {
       try {
         const res = await axios.get('/movies/find/' + item, {
           headers: {
-            token:
-              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZWJiZjkyNDE5OWFjMzQ1Mzg2OWUxNCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY3NjY1NTk0OCwiZXhwIjoxNjc3MDg3OTQ4fQ._XllmZJBeco3k4m3q8jYnQVATz_DZuaAfJHBqYtdw5g',
+            token: 'Bearer ' + JSON.parse(localStorage.getItem("user")).accessToken,
           },
         });
         setMovie(res.data);
@@ -30,17 +29,17 @@ export const ListItem = ({ index, item }) => {
     getMovie();
   }, [item]);
   return (
-    <Link to={`/watch/${movie._id}`}>
+    <Link to={`/watch/${movie?._id}`}>
       <div
         className="listItem"
         style={{ left: isHovered && index * 225 - 50 + index * 2.5 }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <img src={movie.img} alt="thum" />
+        <img src={movie?.img} alt="thum" />
         {isHovered && (
           <>
-            <video src={movie.trailer} autoPlay={true} loop />
+            <video src={movie?.trailer} autoPlay={true} loop />
             <div className="itemInfo">
               <div className="icons">
                 <PlayArrowIcon className="icon" />
@@ -49,12 +48,12 @@ export const ListItem = ({ index, item }) => {
                 <ThumbDownIcon className="icon" />
               </div>
               <div className="itemInfoTop">
-                <span>{movie.duration}</span>
-                <span className="limit">+{movie.limit} hrs</span>
-                <span>{movie.year}</span>
+                <span>{movie?.duration}</span>
+                <span className="limit">+{movie?.limit} hrs</span>
+                <span>{movie?.year}</span>
               </div>
-              <div className="desc">{movie.description} </div>
-              <div className="genre">{movie.genre}</div>
+              <div className="desc">{movie?.description} </div>
+              <div className="genre">{movie?.genre}</div>
             </div>
           </>
         )}
